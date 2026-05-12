@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Preci & Koch Commodities</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700&family=Barlow:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:  #080A0F;
+  --dark:   #0D1117;
+  --dark2:  #131820;
+  --dark3:  #1A2233;
+  --blue:   #1B6FD8;
+  --blue-b: #2A84FF;
+  --blue-g: #4B9FFF;
+  --white:  #F0F4FF;
+  --muted:  rgba(240,244,255,.45);
+  --rule:   rgba(240,244,255,.08);
+  --mono:   'Space Mono', monospace;
+  --cond:   'Barlow Condensed', sans-serif;
+  --body:   'Barlow', sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--black);color:var(--white);overflow-x:hidden;font-weight:300}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--dark)}
+::-webkit-scrollbar-thumb{background:var(--blue)}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.4rem 4rem;
+  background:rgba(8,10,15,.88);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--rule);
+  transition:padding .4s;
+}
+.nav-logo{
+  display:flex;flex-direction:column;line-height:1;
+  text-decoration:none;
+}
+.nav-logo-top{
+  font-family:var(--cond);font-size:1.1rem;font-weight:600;
+  letter-spacing:.15em;color:var(--white);
+}
+.nav-logo-bot{
+  font-family:var(--cond);font-size:.75rem;font-weight:700;
+  letter-spacing:.35em;color:var(--blue-b);text-transform:uppercase;
+}
+.nav-links{display:flex;gap:2.5rem;list-style:none;align-items:center}
+.nav-links a{
+  font-family:var(--body);font-size:.72rem;font-weight:400;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;transition:color .25s;
+}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{
+  padding:.6rem 1.8rem;
+  background:var(--blue);
+  font-family:var(--body);font-size:.68rem;font-weight:500;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:var(--white)!important;text-decoration:none;
+  transition:background .25s!important;
+  clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+}
+.nav-cta:hover{background:var(--blue-b)!important}
+
+/* ── TICKER ── */
+.ticker{
+  position:fixed;top:72px;left:0;right:0;z-index:199;
+  background:var(--blue);padding:.35rem 0;
+  overflow:hidden;border-bottom:1px solid rgba(255,255,255,.1);
+}
+.ticker-inner{
+  display:flex;gap:0;white-space:nowrap;
+  animation:ticker 35s linear infinite;
+}
+.ticker-item{
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;
+  color:rgba(255,255,255,.9);padding:0 3rem;
+  display:flex;align-items:center;gap:.75rem;
+}
+.ticker-item::after{content:'·';opacity:.5}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── HERO ── */
+#hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:10rem 4rem 6rem;
+  position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;background:var(--black);
+  overflow:hidden;
+}
+/* Grid lines */
+.hero-bg::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(27,111,216,.06) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(27,111,216,.06) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+/* Glow */
+.hero-bg::after{
+  content:'';position:absolute;
+  top:-20%;left:-10%;
+  width:70%;height:70%;
+  background:radial-gradient(ellipse,rgba(27,111,216,.15) 0%,transparent 65%);
+  pointer-events:none;
+}
+.hero-eyebrow{
+  position:relative;z-index:1;
+  display:flex;align-items:center;gap:1rem;
+  font-family:var(--mono);font-size:.62rem;letter-spacing:.25em;
+  text-transform:uppercase;color:var(--blue-g);margin-bottom:2rem;
+}
+.hero-eyebrow::before{
+  content:'';display:block;width:2.5rem;height:1px;background:var(--blue-g);
+}
+.hero-headline{
+  position:relative;z-index:1;
+  font-family:var(--cond);font-weight:700;
+  font-size:clamp(4rem,10vw,9.5rem);
+  line-height:.92;letter-spacing:-.01em;
+  text-transform:uppercase;color:var(--white);
+  margin-bottom:1rem;
+}
+.hero-headline span{
+  display:block;color:var(--blue-b);
+  -webkit-text-stroke:0px;
+}
+.hero-headline .outline{
+  -webkit-text-stroke:1px rgba(240,244,255,.2);
+  color:transparent;
+}
+.hero-sub{
+  position:relative;z-index:1;
+  font-family:var(--body);font-size:1.1rem;font-weight:300;
+  line-height:1.75;color:var(--muted);
+  max-width:50ch;margin-bottom:3.5rem;
+}
+.hero-sub strong{color:var(--white);font-weight:400}
+.hero-actions{
+  position:relative;z-index:1;
+  display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap;
+}
+.btn-primary{
+  padding:.9rem 2.5rem;
+  background:var(--blue);
+  font-family:var(--body);font-size:.75rem;font-weight:500;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:var(--white);text-decoration:none;
+  clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+  transition:background .25s,transform .2s;
+  display:inline-block;
+}
+.btn-primary:hover{background:var(--blue-b);transform:translateY(-2px)}
+.btn-ghost{
+  padding:.9rem 2.5rem;
+  border:1px solid rgba(240,244,255,.2);
+  font-family:var(--body);font-size:.75rem;font-weight:400;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;
+  transition:border-color .25s,color .25s;
+  display:inline-block;
+}
+.btn-ghost:hover{border-color:var(--blue-b);color:var(--white)}
+.hero-stats{
+  position:relative;z-index:1;
+  display:flex;gap:0;margin-top:5rem;
+  border-top:1px solid var(--rule);padding-top:2.5rem;
+}
+.hero-stat{
+  padding-right:3rem;margin-right:3rem;
+  border-right:1px solid var(--rule);
+}
+.hero-stat:last-child{border-right:none}
+.stat-n{
+  font-family:var(--cond);font-size:2.8rem;font-weight:700;
+  line-height:1;color:var(--blue-b);margin-bottom:.3rem;
+}
+.stat-l{
+  font-family:var(--mono);font-size:.55rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--muted);
+}
+/* Decorative corner */
+.hero-corner{
+  position:absolute;bottom:3rem;right:4rem;z-index:1;
+  opacity:.15;
+}
+
+/* ── SECTIONS ── */
+.section-inner{max-width:1200px;margin:0 auto;padding:7rem 4rem}
+.section-tag{
+  font-family:var(--mono);font-size:.58rem;letter-spacing:.28em;
+  text-transform:uppercase;color:var(--blue-g);
+  display:flex;align-items:center;gap:.75rem;margin-bottom:1.2rem;
+}
+.section-tag::before{content:'';display:block;width:1.5rem;height:1px;background:var(--blue-g)}
+.section-title{
+  font-family:var(--cond);font-weight:700;text-transform:uppercase;
+  font-size:clamp(2.2rem,5vw,4rem);line-height:1;
+  letter-spacing:.02em;color:var(--white);margin-bottom:1.5rem;
+}
+.section-title span{color:var(--blue-b)}
+
+/* ── ABOUT ── */
+#about{background:var(--dark);border-top:1px solid var(--rule)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+.about-text p{
+  font-size:1rem;font-weight:300;line-height:1.85;
+  color:var(--muted);margin-bottom:1.1rem;
+}
+.about-text p strong{color:var(--white);font-weight:400}
+.about-text p em{color:var(--blue-g);font-style:normal}
+.about-flags{
+  display:flex;flex-direction:column;gap:1px;
+  background:var(--rule);margin-top:3rem;
+}
+.flag-row{
+  background:var(--dark);padding:1.5rem 2rem;
+  display:flex;align-items:flex-start;gap:1.5rem;
+  transition:background .2s;
+}
+.flag-row:hover{background:var(--dark2)}
+.flag-emoji{font-size:1.8rem;line-height:1;flex-shrink:0;margin-top:.1rem}
+.flag-content{}
+.flag-country{
+  font-family:var(--cond);font-size:1rem;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--white);margin-bottom:.4rem;
+}
+.flag-roles{
+  font-family:var(--body);font-size:.8rem;font-weight:300;
+  color:var(--muted);line-height:1.6;
+}
+
+/* ── PLATFORM ── */
+#platform{
+  background:var(--black);border-top:1px solid var(--rule);
+  position:relative;overflow:hidden;
+}
+#platform::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(27,111,216,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(27,111,216,.04) 1px,transparent 1px);
+  background-size:40px 40px;
+}
+.platform-grid{
+  position:relative;z-index:1;
+  display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;
+}
+.platform-steps{display:flex;flex-direction:column;gap:1px;background:var(--rule)}
+.platform-step{
+  background:var(--black);padding:2rem 2rem;
+  display:grid;grid-template-columns:48px 1fr;gap:1.5rem;
+  align-items:start;transition:background .25s;
+  position:relative;
+}
+.platform-step::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:2px;
+  background:var(--blue);opacity:0;transition:opacity .25s;
+}
+.platform-step:hover{background:var(--dark2)}
+.platform-step:hover::before{opacity:1}
+.step-n{
+  font-family:var(--mono);font-size:.7rem;color:var(--blue-b);
+  padding-top:.2rem;
+}
+.step-title{
+  font-family:var(--cond);font-size:1.15rem;font-weight:600;
+  letter-spacing:.05em;text-transform:uppercase;
+  color:var(--white);margin-bottom:.4rem;
+}
+.step-desc{
+  font-size:.85rem;font-weight:300;line-height:1.7;color:var(--muted);
+}
+.platform-visual{
+  display:flex;flex-direction:column;gap:1rem;
+}
+.vis-card{
+  background:var(--dark2);border:1px solid var(--rule);
+  padding:1.5rem 2rem;position:relative;overflow:hidden;
+}
+.vis-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--blue),transparent);
+}
+.vis-card-label{
+  font-family:var(--mono);font-size:.55rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--blue-g);margin-bottom:.75rem;
+}
+.vis-card-value{
+  font-family:var(--cond);font-size:1.6rem;font-weight:600;
+  color:var(--white);line-height:1;
+}
+.vis-card-sub{
+  font-size:.78rem;color:var(--muted);margin-top:.3rem;
+}
+.vis-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.blockchain-badge{
+  background:var(--dark3);border:1px solid rgba(27,111,216,.3);
+  padding:1.2rem 1.5rem;
+  display:flex;align-items:center;gap:1rem;
+}
+.badge-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--blue-b);
+  box-shadow:0 0 8px var(--blue-b);
+  flex-shrink:0;
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.badge-text{font-size:.78rem;color:var(--muted)}
+.badge-text strong{color:var(--white);font-weight:400}
+
+/* ── PRODUCTS ── */
+#products{background:var(--dark);border-top:1px solid var(--rule)}
+.products-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--rule);margin-top:4rem;
+}
+.product-card{
+  background:var(--dark);padding:3rem 2.5rem;
+  position:relative;overflow:hidden;
+  transition:background .25s;
+}
+.product-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:var(--blue);transform:scaleX(0);transition:transform .3s;
+  transform-origin:left;
+}
+.product-card:hover{background:var(--dark2)}
+.product-card:hover::after{transform:scaleX(1)}
+.product-icon{
+  font-size:2.5rem;margin-bottom:1.5rem;display:block;
+}
+.product-name{
+  font-family:var(--cond);font-size:1.4rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.08em;
+  color:var(--white);margin-bottom:.75rem;
+}
+.product-origin{
+  font-family:var(--mono);font-size:.55rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--blue-g);margin-bottom:1rem;
+}
+.product-desc{
+  font-size:.85rem;font-weight:300;line-height:1.75;color:var(--muted);
+}
+.product-card.featured{
+  background:var(--dark3);border:1px solid rgba(27,111,216,.2);
+}
+.product-card.featured::before{
+  content:'FEATURED';
+  position:absolute;top:1.5rem;right:1.5rem;
+  font-family:var(--mono);font-size:.48rem;letter-spacing:.2em;
+  color:var(--blue-g);
+}
+
+/* ── ORIGINS ── */
+#origins{
+  background:var(--black);border-top:1px solid var(--rule);
+  position:relative;overflow:hidden;
+}
+.origins-inner{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:6rem;align-items:center;
+}
+.origins-map{
+  position:relative;
+}
+.origins-map svg{width:100%;height:auto;opacity:.85}
+.origins-list{display:flex;flex-direction:column;gap:1px;background:var(--rule)}
+.origin-row{
+  background:var(--black);padding:1.5rem 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  transition:background .2s;
+}
+.origin-row:hover{background:var(--dark2)}
+.origin-name{
+  font-family:var(--cond);font-size:1.1rem;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--white);
+}
+.origin-flag{font-size:1.4rem}
+.origin-products{
+  font-family:var(--mono);font-size:.55rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);margin-top:.2rem;
+}
+
+/* ── CONTACT ── */
+#contact{background:var(--dark);border-top:1px solid var(--rule)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem}
+.contact-lead{
+  font-family:var(--cond);font-size:clamp(1.8rem,3vw,2.8rem);
+  font-weight:700;text-transform:uppercase;line-height:1.1;
+  color:var(--white);margin-bottom:2rem;
+}
+.contact-lead span{color:var(--blue-b)}
+.contact-info{display:flex;flex-direction:column;gap:0}
+.c-row{
+  padding:1.25rem 0;border-bottom:1px solid var(--rule);
+  display:flex;flex-direction:column;gap:.3rem;
+}
+.c-row:last-child{border-bottom:none}
+.c-label{
+  font-family:var(--mono);font-size:.55rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--blue-g);
+}
+.c-val{
+  font-size:.92rem;font-weight:300;color:var(--muted);line-height:1.5;
+}
+.c-val a{color:inherit;text-decoration:none;transition:color .2s}
+.c-val a:hover{color:var(--white)}
+
+/* form */
+.f-group{margin-bottom:1.75rem}
+.f-group label{
+  display:block;font-family:var(--mono);font-size:.55rem;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:.6rem;opacity:.7;
+}
+.f-group input,.f-group select,.f-group textarea{
+  width:100%;background:var(--dark2);
+  border:1px solid var(--rule);
+  border-bottom:1px solid rgba(240,244,255,.2);
+  padding:.75rem 1rem;
+  font-family:var(--body);font-size:.9rem;font-weight:300;
+  color:var(--white);outline:none;
+  transition:border-color .25s;
+  -webkit-appearance:none;appearance:none;border-radius:0;
+}
+.f-group select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='5'%3E%3Cpath d='M0 0l5 5 5-5z' fill='%234B9FFF'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 1rem center;
+  padding-right:2rem;cursor:pointer;
+}
+.f-group select option{background:var(--dark2)}
+.f-group input:focus,.f-group select:focus,.f-group textarea:focus{
+  border-color:var(--blue);background:var(--dark3);
+}
+.f-group textarea{resize:none;min-height:90px}
+.f-row2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.btn-submit{
+  width:100%;padding:1rem;
+  background:var(--blue);
+  font-family:var(--cond);font-size:1rem;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--white);border:none;cursor:pointer;
+  clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+  transition:background .25s;margin-top:.5rem;
+}
+.btn-submit:hover{background:var(--blue-b)}
+.form-ok{
+  display:none;padding:3rem 0;
+}
+.form-ok p{
+  font-family:var(--cond);font-size:1.8rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.05em;
+  color:var(--blue-b);line-height:1.3;
+}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--black);padding:2.5rem 4rem;
+  display:flex;align-items:center;justify-content:space-between;
+  border-top:1px solid var(--rule);
+}
+.ft-logo{display:flex;flex-direction:column;line-height:1}
+.ft-logo-top{font-family:var(--cond);font-size:.9rem;font-weight:600;letter-spacing:.15em;color:rgba(240,244,255,.5)}
+.ft-logo-bot{font-family:var(--cond);font-size:.65rem;font-weight:700;letter-spacing:.3em;color:var(--blue);text-transform:uppercase}
+.ft-copy{font-family:var(--mono);font-size:.55rem;letter-spacing:.1em;color:rgba(240,244,255,.2)}
+.ft-links{display:flex;gap:2rem}
+.ft-links a{
+  font-family:var(--mono);font-size:.55rem;letter-spacing:.15em;
+  text-transform:uppercase;color:rgba(240,244,255,.25);
+  text-decoration:none;transition:color .2s;
+}
+.ft-links a:hover{color:var(--white)}
+
+/* ── REVEAL ── */
+.rv{opacity:0;transform:translateY(20px);transition:opacity .8s ease,transform .8s ease}
+.rv.on{opacity:1;transform:none}
+
+/* ── MOBILE ── */
+@media(max-width:960px){
+  nav{padding:1.2rem 1.5rem}
+  .nav-links{display:none}
+  #hero{padding:9rem 1.5rem 5rem}
+  .hero-stats{flex-wrap:wrap;gap:2rem}
+  .hero-stat{border-right:none;padding-right:0;margin-right:0;border-bottom:1px solid var(--rule);padding-bottom:1rem}
+  .hero-stat:last-child{border-bottom:none}
+  .section-inner{padding:5rem 1.5rem}
+  .about-grid,.platform-grid,.origins-inner,.contact-grid{grid-template-columns:1fr;gap:3rem}
+  .products-grid{grid-template-columns:1fr 1fr}
+  .vis-grid{grid-template-columns:1fr}
+  footer{flex-direction:column;gap:1.2rem;padding:2rem 1.5rem;text-align:center}
+  .ft-links{justify-content:center}
+}
+@media(max-width:560px){
+  .products-grid{grid-template-columns:1fr}
+  .f-row2{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="nav-logo" href="#hero">
+    <span class="nav-logo-top">PRECI &amp; KOCH</span>
+    <span class="nav-logo-bot">Commodities</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#platform">Platform</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#origins">Origins</a></li>
+    <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+  </ul>
+</nav>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">CORN · Brazil · Argentina · Paraguay</span>
+    <span class="ticker-item">RICE · Brazil · Uruguay</span>
+    <span class="ticker-item">SOYBEANS · Brazil · Argentina · USA</span>
+    <span class="ticker-item">SUGAR · Brazil</span>
+    <span class="ticker-item">OILSEEDS · South America</span>
+    <span class="ticker-item">WHEAT · USA · Argentina</span>
+    <span class="ticker-item">BLOCKCHAIN SECURED CONTRACTS</span>
+    <span class="ticker-item">YEARLY SUPPLY · SPOT TRADES</span>
+    <span class="ticker-item">NON-GMO AVAILABLE</span>
+    <!-- repeat for loop -->
+    <span class="ticker-item">CORN · Brazil · Argentina · Paraguay</span>
+    <span class="ticker-item">RICE · Brazil · Uruguay</span>
+    <span class="ticker-item">SOYBEANS · Brazil · Argentina · USA</span>
+    <span class="ticker-item">SUGAR · Brazil</span>
+    <span class="ticker-item">OILSEEDS · South America</span>
+    <span class="ticker-item">WHEAT · USA · Argentina</span>
+    <span class="ticker-item">BLOCKCHAIN SECURED CONTRACTS</span>
+    <span class="ticker-item">YEARLY SUPPLY · SPOT TRADES</span>
+    <span class="ticker-item">NON-GMO AVAILABLE</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <p class="hero-eyebrow">Global Commodity Trading</p>
+  <h1 class="hero-headline">
+    <span class="outline">Trade</span>
+    <span>Smarter.</span>
+    Scale
+    <span>Faster.</span>
+  </h1>
+  <p class="hero-sub">
+    Connecting <strong>producers to buyers</strong> across 5 countries through a digital trading platform secured by <strong>blockchain technology</strong>. Over <strong>1 million tons</strong> traded. Zero compromises.
+  </p>
+  <div class="hero-actions">
+    <a href="#contact" class="btn-primary">Request a Quote</a>
+    <a href="#platform" class="btn-ghost">See How It Works</a>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="stat-n">1M+</div>
+      <div class="stat-l">Tons traded</div>
+    </div>
+    <div class="hero-stat">
+      <div class="stat-n">5</div>
+      <div class="stat-l">Countries of origin</div>
+    </div>
+    <div class="hero-stat">
+      <div class="stat-n">3</div>
+      <div class="stat-l">Global offices</div>
+    </div>
+    <div class="hero-stat">
+      <div class="stat-n">100%</div>
+      <div class="stat-l">Blockchain secured</div>
+    </div>
+  </div>
+  <!-- Decorative SVG corner -->
+  <svg class="hero-corner" width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="100" cy="100" r="80" stroke="white" stroke-width="0.5"/>
+    <circle cx="100" cy="100" r="60" stroke="white" stroke-width="0.5"/>
+    <circle cx="100" cy="100" r="40" stroke="white" stroke-width="0.5"/>
+    <line x1="20" y1="100" x2="180" y2="100" stroke="white" stroke-width="0.5"/>
+    <line x1="100" y1="20" x2="100" y2="180" stroke="white" stroke-width="0.5"/>
+    <circle cx="100" cy="100" r="4" fill="white"/>
+  </svg>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="rv">
+        <p class="section-tag">Who we are</p>
+        <h2 class="section-title">Built on<br><span>Experience.</span></h2>
+        <div class="about-text">
+          <p><em>Preci &amp; Koch Commodities</em> was born from a proven track record in digital commodity trading. Our founder, <strong>Mr. Koch</strong>, served as Chief Operations Officer at DCX Platform — DCX.group — since 2019, where over <strong>1 million tons of rice, corn, and fertilizers</strong> were traded internationally.</p>
+          <p>Our mission is to <strong>connect producers to buyers</strong> in a more direct, efficient, and transparent way — eliminating unnecessary intermediaries and reducing transaction risk through technology.</p>
+          <p>We specialize in <strong>yearly supply contracts</strong> and spot trades, with the flexibility to accommodate special orders including <strong>non-GMO products</strong> under producers' terms and conditions.</p>
+        </div>
+      </div>
+      <div class="rv">
+        <div class="about-flags">
+          <div class="flag-row">
+            <div class="flag-emoji">🇨🇭</div>
+            <div class="flag-content">
+              <div class="flag-country">Switzerland</div>
+              <div class="flag-roles">Main Trade Company · Management · Finances · Legal Office</div>
+            </div>
+          </div>
+          <div class="flag-row">
+            <div class="flag-emoji">🇧🇷</div>
+            <div class="flag-content">
+              <div class="flag-country">Brazil</div>
+              <div class="flag-roles">Environmental Engineering · Grade Quality Control · Local Legal Compliance · Logistics</div>
+            </div>
+          </div>
+          <div class="flag-row">
+            <div class="flag-emoji">🇪🇸</div>
+            <div class="flag-content">
+              <div class="flag-country">Spain</div>
+              <div class="flag-roles">Commercial Legal Office · Policy Office</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORM -->
+<section id="platform">
+  <div class="section-inner">
+    <div class="platform-grid">
+      <div class="rv">
+        <p class="section-tag">Digital Trading Platform</p>
+        <h2 class="section-title">The future of<br><span>commodity</span><br>trading.</h2>
+        <p style="font-size:.95rem;line-height:1.8;color:var(--muted);margin:1.5rem 0 2.5rem">Our proprietary digital platform puts buyers and producers in direct contact — with built-in negotiation tools, digital contracts, and blockchain-secured documentation. Every step, online and transparent.</p>
+        <div class="platform-steps">
+          <div class="platform-step">
+            <span class="step-n">01</span>
+            <div>
+              <div class="step-title">Submit your request</div>
+              <div class="step-desc">Create your trade request on the platform. Specify quantity, quality, delivery terms and timeline.</div>
+            </div>
+          </div>
+          <div class="platform-step">
+            <span class="step-n">02</span>
+            <div>
+              <div class="step-title">Receive offers</div>
+              <div class="step-desc">Get prices based on quantity and quality from verified producers. Exchange messages and negotiate directly.</div>
+            </div>
+          </div>
+          <div class="platform-step">
+            <span class="step-n">03</span>
+            <div>
+              <div class="step-title">Digital contract</div>
+              <div class="step-desc">Once you agree, a digital contract is created and digitally signed by all parties — no paperwork, no delays.</div>
+            </div>
+          </div>
+          <div class="platform-step">
+            <span class="step-n">04</span>
+            <div>
+              <div class="step-title">Blockchain secured</div>
+              <div class="step-desc">Documents, messages, and comments are online, digitalized, and secured by blockchain technology. Full traceability.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="platform-visual rv">
+        <div class="vis-card">
+          <div class="vis-card-label">Total volume traded</div>
+          <div class="vis-card-value">1,000,000+</div>
+          <div class="vis-card-sub">Metric tons · rice, corn, fertilizers</div>
+        </div>
+        <div class="vis-grid">
+          <div class="vis-card">
+            <div class="vis-card-label">Contract type</div>
+            <div class="vis-card-value" style="font-size:1.1rem">Yearly Supply</div>
+            <div class="vis-card-sub">+ Spot trades available</div>
+          </div>
+          <div class="vis-card">
+            <div class="vis-card-label">Special orders</div>
+            <div class="vis-card-value" style="font-size:1.1rem">Non-GMO</div>
+            <div class="vis-card-sub">Under producer terms</div>
+          </div>
+        </div>
+        <div class="blockchain-badge">
+          <div class="badge-dot"></div>
+          <div class="badge-text"><strong>Blockchain Active</strong> — All contracts and documents are secured and immutable on the blockchain network.</div>
+        </div>
+        <div class="vis-card">
+          <div class="vis-card-label">Process transparency</div>
+          <div class="vis-card-value" style="font-size:1rem;line-height:1.4">"All steps can be followed online. Documents uploaded as they are made available."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="section-inner">
+    <div class="rv">
+      <p class="section-tag">What we trade</p>
+      <h2 class="section-title">Our <span>Products</span></h2>
+    </div>
+    <div class="products-grid rv">
+      <div class="product-card featured">
+        <span class="product-icon">🌽</span>
+        <div class="product-name">Corn</div>
+        <div class="product-origin">BR · AR · PY · USA</div>
+        <div class="product-desc">Yellow corn and white corn sourced from top producers across Brazil, Argentina, Paraguay, and the United States. Yearly contracts and spot trades available.</div>
+      </div>
+      <div class="product-card">
+        <span class="product-icon">🌾</span>
+        <div class="product-name">Rice</div>
+        <div class="product-origin">BR · UY</div>
+        <div class="product-desc">Premium long-grain and medium-grain rice from Brazil and Uruguay. One of our highest-volume commodities, with over 1M tons traded via our platform.</div>
+      </div>
+      <div class="product-card">
+        <span class="product-icon">🫘</span>
+        <div class="product-name">Soybeans</div>
+        <div class="product-origin">BR · AR · USA</div>
+        <div class="product-desc">Conventional and non-GMO soybeans from South America's most productive regions. Flexible supply terms for industry buyers.</div>
+      </div>
+      <div class="product-card">
+        <span class="product-icon">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8" y="14" width="24" height="22" rx="3" fill="#1B6FD8" opacity=".25" stroke="#4B9FFF" stroke-width="1.2"/>
+            <path d="M14 14 C14 14 13 8 20 8 C27 8 26 14 26 14" stroke="#4B9FFF" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+            <line x1="8" y1="20" x2="32" y2="20" stroke="#4B9FFF" stroke-width="1" opacity=".5"/>
+            <text x="20" y="31" text-anchor="middle" fill="#4B9FFF" font-family="monospace" font-size="7" letter-spacing="1" opacity=".9">SUGAR</text>
+          </svg>
+        </span>
+        <div class="product-name">Sugar</div>
+        <div class="product-origin">BR</div>
+        <div class="product-desc">Raw and refined sugar from Brazil — the world's largest sugar producer. VHP, ICUMSA 45, and crystal sugar grades available.</div>
+      </div>
+      <div class="product-card">
+        <span class="product-icon">🌱</span>
+        <div class="product-name">Oilseeds</div>
+        <div class="product-origin">BR · AR · PY</div>
+        <div class="product-desc">Sunflower, canola, and other industrialized oilseeds. Outsourced directly from producers under rigorous quality control standards.</div>
+      </div>
+      <div class="product-card">
+        <span class="product-icon">🌿</span>
+        <div class="product-name">Wheat &amp; Others</div>
+        <div class="product-origin">AR · USA</div>
+        <div class="product-desc">Wheat, fertilizers, and other agricultural products. We are open to special and custom orders — contact us to discuss your specific requirements.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ORIGINS -->
+<section id="origins">
+  <div class="section-inner">
+    <div class="origins-inner">
+      <div class="rv">
+        <p class="section-tag">Sourcing network</p>
+        <h2 class="section-title">5 Countries.<br><span>One Platform.</span></h2>
+        <p style="font-size:.95rem;line-height:1.8;color:var(--muted);margin:1.5rem 0 2.5rem">We source directly from verified producers across the Americas — ensuring traceability, quality, and competitive pricing at every step of the supply chain.</p>
+        <div class="origins-list">
+          <div class="origin-row">
+            <div>
+              <div class="origin-name">Brazil</div>
+              <div class="origin-products">Corn · Rice · Soybeans · Sugar · Oilseeds</div>
+            </div>
+            <div class="origin-flag">🇧🇷</div>
+          </div>
+          <div class="origin-row">
+            <div>
+              <div class="origin-name">Argentina</div>
+              <div class="origin-products">Corn · Soybeans · Wheat · Oilseeds</div>
+            </div>
+            <div class="origin-flag">🇦🇷</div>
+          </div>
+          <div class="origin-row">
+            <div>
+              <div class="origin-name">Paraguay</div>
+              <div class="origin-products">Corn · Soybeans · Oilseeds</div>
+            </div>
+            <div class="origin-flag">🇵🇾</div>
+          </div>
+          <div class="origin-row">
+            <div>
+              <div class="origin-name">Uruguay</div>
+              <div class="origin-products">Rice · Soybeans</div>
+            </div>
+            <div class="origin-flag">🇺🇾</div>
+          </div>
+          <div class="origin-row">
+            <div>
+              <div class="origin-name">United States</div>
+              <div class="origin-products">Corn · Soybeans · Wheat</div>
+            </div>
+            <div class="origin-flag">🇺🇸</div>
+          </div>
+        </div>
+      </div>
+      <!-- SVG Map Americas -->
+      <div class="rv">
+        <svg viewBox="0 0 400 520" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="mapglow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#1B6FD8" stop-opacity="0.15"/>
+              <stop offset="100%" stop-color="#1B6FD8" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <rect width="400" height="520" fill="url(#mapglow)"/>
+          <!-- North America -->
+          <path d="M80,40 L200,30 L240,60 L260,100 L240,130 L200,140 L170,160 L150,150 L120,140 L80,120 L60,80 Z" fill="#1A2233" stroke="#1B6FD8" stroke-width="0.8" opacity="0.8"/>
+          <!-- Central America -->
+          <path d="M150,150 L170,160 L165,190 L150,200 L140,185 L138,165 Z" fill="#1A2233" stroke="#1B6FD8" stroke-width="0.8" opacity="0.7"/>
+          <!-- South America -->
+          <path d="M140,200 L180,195 L230,210 L260,250 L270,300 L260,360 L230,410 L200,440 L170,430 L140,400 L120,360 L110,300 L120,250 L130,220 Z" fill="#1A2233" stroke="#1B6FD8" stroke-width="0.8" opacity="0.8"/>
+          <!-- Grid lines -->
+          <line x1="0" y1="260" x2="400" y2="260" stroke="#1B6FD8" stroke-width="0.3" opacity="0.3" stroke-dasharray="4,4"/>
+          <line x1="200" y1="0" x2="200" y2="520" stroke="#1B6FD8" stroke-width="0.3" opacity="0.3" stroke-dasharray="4,4"/>
+          <!-- USA pin -->
+          <circle cx="155" cy="100" r="5" fill="#2A84FF"/>
+          <circle cx="155" cy="100" r="10" fill="#2A84FF" opacity="0.2"/>
+          <text x="168" y="104" fill="#4B9FFF" font-family="monospace" font-size="9" letter-spacing="1">USA</text>
+          <!-- Brazil pin -->
+          <circle cx="210" cy="300" r="5" fill="#2A84FF"/>
+          <circle cx="210" cy="300" r="10" fill="#2A84FF" opacity="0.2"/>
+          <text x="223" y="304" fill="#4B9FFF" font-family="monospace" font-size="9" letter-spacing="1">BRA</text>
+          <!-- Argentina pin -->
+          <circle cx="185" cy="380" r="5" fill="#2A84FF"/>
+          <circle cx="185" cy="380" r="10" fill="#2A84FF" opacity="0.2"/>
+          <text x="198" y="384" fill="#4B9FFF" font-family="monospace" font-size="9" letter-spacing="1">ARG</text>
+          <!-- Paraguay pin -->
+          <circle cx="196" cy="340" r="4" fill="#4B9FFF"/>
+          <circle cx="196" cy="340" r="8" fill="#4B9FFF" opacity="0.2"/>
+          <text x="208" y="343" fill="#4B9FFF" font-family="monospace" font-size="8" letter-spacing="1">PRY</text>
+          <!-- Uruguay pin -->
+          <circle cx="200" cy="365" r="4" fill="#4B9FFF"/>
+          <circle cx="200" cy="365" r="8" fill="#4B9FFF" opacity="0.2"/>
+          <text x="212" y="368" fill="#4B9FFF" font-family="monospace" font-size="8" letter-spacing="1">URY</text>
+          <!-- Label -->
+          <text x="200" y="500" text-anchor="middle" fill="#1B6FD8" font-family="monospace" font-size="8" letter-spacing="3" opacity="0.5">SOURCING NETWORK</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="rv" style="margin-bottom:4rem">
+      <p class="section-tag">Get in touch</p>
+      <h2 class="section-title">Ready to <span>Trade?</span></h2>
+    </div>
+    <div class="contact-grid">
+      <div class="rv">
+        <p class="contact-lead">Tell us what you need.<br>We'll <span>make it happen.</span></p>
+        <div class="contact-info">
+          <div class="c-row">
+            <span class="c-label">Website</span>
+            <span class="c-val"><a href="http://www.preci-koch.com" target="_blank">www.preci-koch.com</a></span>
+          </div>
+          <div class="c-row">
+            <span class="c-label">Commercial</span>
+            <span class="c-val">
+              <a href="mailto:rodolpho@preci-koch.com">rodolpho@preci-koch.com</a><br>
+              <a href="mailto:davi@preci-koch.com">davi@preci-koch.com</a>
+            </span>
+          </div>
+          <div class="c-row">
+            <span class="c-label">Operations</span>
+            <span class="c-val"><a href="mailto:juliana@preci-koch.com">juliana@preci-koch.com</a></span>
+          </div>
+          <div class="c-row">
+            <span class="c-label">Phone</span>
+            <span class="c-val">
+              +55 (11) 97347-3298<br>
+              +55 (11) 99505-3983
+            </span>
+          </div>
+          <div class="c-row">
+            <span class="c-label">Headquarters</span>
+            <span class="c-val">Switzerland 🇨🇭 · Brazil 🇧🇷 · Spain 🇪🇸</span>
+          </div>
+        </div>
+      </div>
+      <div class="rv">
+        <form id="form" action="https://formspree.io/f/mdabblzj" method="POST">
+          <div class="f-row2">
+            <div class="f-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" required/>
+            </div>
+            <div class="f-group">
+              <label for="company">Company</label>
+              <input type="text" id="company" name="company"/>
+            </div>
+          </div>
+          <div class="f-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required/>
+          </div>
+          <div class="f-group">
+            <label for="product">Product of interest</label>
+            <select id="product" name="product">
+              <option value="" disabled selected></option>
+              <option>Corn</option>
+              <option>Rice</option>
+              <option>Soybeans</option>
+              <option>Sugar</option>
+              <option>Oilseeds</option>
+              <option>Wheat</option>
+              <option>Other / Multiple products</option>
+            </select>
+          </div>
+          <div class="f-group">
+            <label for="volume">Estimated volume (tons/year)</label>
+            <input type="text" id="volume" name="volume" placeholder="e.g. 10,000"/>
+          </div>
+          <div class="f-group">
+            <label for="msg">Message</label>
+            <textarea id="msg" name="message" rows="3" placeholder="Tell us about your requirements..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Submit Request →</button>
+        </form>
+        <div class="form-ok" id="ok">
+          <p>Request received.<br>Our team will<br>contact you shortly.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-logo">
+    <span class="ft-logo-top">PRECI &amp; KOCH</span>
+    <span class="ft-logo-bot">Commodities</span>
+  </div>
+  <span class="ft-copy">© 2025 Preci &amp; Koch Commodities · Switzerland · Brazil · Spain</span>
+  <div class="ft-links">
+    <a href="#about">About</a>
+    <a href="#platform">Platform</a>
+    <a href="#products">Products</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const obs = new IntersectionObserver(e=>{
+    e.forEach(el=>{ if(el.isIntersecting){el.target.classList.add('on');obs.unobserve(el.target)} })
+  },{threshold:.07});
+  document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+  // Nav
+  window.addEventListener('scroll',()=>{
+    document.getElementById('nav').style.padding = scrollY>60?'1rem 4rem':'1.4rem 4rem';
+  });
+
+  // Form
+  document.getElementById('form').addEventListener('submit', async e=>{
+    e.preventDefault();
+    const btn = e.target.querySelector('.btn-submit');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    try{
+      const res = await fetch(e.target.action,{
+        method:'POST',body:new FormData(e.target),
+        headers:{'Accept':'application/json'}
+      });
+      if(res.ok){
+        e.target.style.display='none';
+        document.getElementById('ok').style.display='block';
+      } else {
+        btn.textContent='Error — please try again';
+        btn.disabled=false;
+      }
+    }catch{
+      btn.textContent='Error — please try again';
+      btn.disabled=false;
+    }
+  });
+</script>
+</body>
+</html>
